@@ -20,17 +20,19 @@ static async Task RunCode(IServiceProvider hostProvider)
     using var serviceScope = hostProvider.CreateScope();
     var provider = serviceScope.ServiceProvider;
     var validator = provider.GetRequiredService<IValidateService>();
-    var scoreForPerson = new PersonScore {Id = 2, Score = 75};
+    var scoreForPerson = new PersonScore {Id = 2, Score = 110};
     var messages1 = await validator.ValidateAllAsync(scoreForPerson);
-
-    try
+    foreach (var message in messages1)
     {
-        var message2 = await validator.ValidateAllAsync(null);
+        Console.WriteLine(message);
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"What do I have here {ex.Message} {ex.GetType()}");
 
+    List<string> message2 = new();
+    message2 = await validator.ValidateAllAsync(null);
+
+    foreach (var message in message2)
+    {
+        Console.WriteLine(message);
     }
 
 }

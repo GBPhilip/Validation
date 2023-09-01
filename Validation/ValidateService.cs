@@ -32,13 +32,32 @@
 
         public async Task<List<string>> ValidateAllAsync(PersonScore personScore)
         {
-            List<string> errors = new();
-            foreach (var validator in _validators)
+            List<string?> errors = new();
+            List<Task<string?>> tasks = new();
+            try
             {
-                string? error = await validator.IsValidAsync(personScore);
-                if (error is not null) errors.Add(error);
+                foreach (var validator in _validators)
+                {
+                    tasks.Add(validator.IsValidAsync(personScore));
+                }
+
+                errors.AddRange(await Task.WhenAll(tasks));
             }
-            return errors;
+            catch (Exception ex)
+            {
+                var exceptions = tasks.Where(t => t.Exception != null)
+                    .Select(t => t.Exception).ToList();
+                foreach (var ae in exceptions)
+                {
+                    ae.Handle(e =>
+                    {
+                        errors.Add(e.Message);
+                        return true;
+                    });
+                }
+            }
+
+            return errors.Where(x => x != null).ToList();
         }
 
     }
