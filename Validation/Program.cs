@@ -24,6 +24,15 @@ static void RunCode(IServiceProvider hostProvider)
     validator.ValidateAll(scoreForPerson);
 
 
-    validator.ValidateAll(null);
+	try
+	{
+		validator.ValidateAll(null);
+
+	}
+	catch (Exception ex)
+	{
+		Console.WriteLine($"What do I have here {ex.Message} {ex.GetType()}");
+		
+	}
 
 }
