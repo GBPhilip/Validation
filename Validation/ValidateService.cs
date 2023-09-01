@@ -41,7 +41,8 @@
                     error = await validator.IsValidAsync(personScore);
 
                 }
-                catch (Exception ex)
+                
+                catch (Exception ex) 
                 {
                     errors.Add($"Unable to validate - {validator.GetType()} {ex.Message}");
                 }

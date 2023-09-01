@@ -12,18 +12,18 @@ builder.Services.AddScoped<IValidator, MinValidator>();
 builder.Services.AddScoped<IValidator, ExistsValidator>();
 builder.Services.AddScoped<IValidateService, ValidateService>();
 using var host = builder.Build();
-RunCode(host.Services);
+await RunCode(host.Services);
 
 
-static void RunCode(IServiceProvider hostProvider)
+static async Task RunCode(IServiceProvider hostProvider)
 {
     using var serviceScope = hostProvider.CreateScope();
     var provider = serviceScope.ServiceProvider;
     var validator = provider.GetRequiredService<IValidateService>();
     var scoreForPerson = new PersonScore {Id = 2, Score = 75};
-    validator.ValidateAllAsync(scoreForPerson);
+    var messages1 = await validator.ValidateAllAsync(scoreForPerson);
 
 
-    validator.ValidateAllAsync(null);
+    var message2 = await validator.ValidateAllAsync(null);
 
 }
