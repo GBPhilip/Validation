@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Validation
+﻿namespace Validation
 {
     internal class ExistsValidator : IValidator
     {
@@ -19,7 +13,7 @@ namespace Validation
             ArgumentNullException.ThrowIfNull(nameof(personScore));
             ArgumentNullException.ThrowIfNull(nameof(personScore.Id));
             ArgumentNullException.ThrowIfNull(nameof(personScore.Score));
-            return repository.DoesIdExist(personScore.Id);
+            return repository.DoesIdExist(personScore.Id)? $"{personScore.Id} already exists" : null;
         }
     }
 }
