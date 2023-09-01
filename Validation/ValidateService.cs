@@ -14,8 +14,15 @@
             List<string> errors = new();
             foreach (var validator in _validators)
             {
-                string? error = validator.IsValid(personScore);
-                if (error is not null) errors.Add(error);
+                try
+                {
+                    string? error = validator.IsValid(personScore);
+                    if (error is not null) errors.Add(error);
+                }
+                catch (Exception ex)
+                {
+                    errors.Add(ex.Message);    
+                }      
             }
             return errors;
         }

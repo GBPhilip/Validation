@@ -21,18 +21,16 @@ static void RunCode(IServiceProvider hostProvider)
     var provider = serviceScope.ServiceProvider;
     var validator = provider.GetRequiredService<IValidateService>();
     var scoreForPerson = new PersonScore {Id = 2, Score = 75};
-    validator.ValidateAll(scoreForPerson);
+    var messages = validator.ValidateAll(scoreForPerson);
+    foreach (var message in messages)
+    {
+        Console.WriteLine(message);
+    }
 
-
-	try
-	{
-		validator.ValidateAll(null);
-
-	}
-	catch (Exception ex)
-	{
-		Console.WriteLine($"What do I have here {ex.Message} {ex.GetType()}");
-		
-	}
+	messages = validator.ValidateAll(null);
+    foreach (var message in messages)
+    {
+        Console.WriteLine(message);
+    }
 
 }
