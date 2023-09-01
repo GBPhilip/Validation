@@ -10,6 +10,7 @@
         }
         public string? IsValid(PersonScore personScore)
         {
+            Console.WriteLine("Exists");
             ArgumentNullException.ThrowIfNull(personScore);
             ArgumentNullException.ThrowIfNull(personScore.Id);
             ArgumentNullException.ThrowIfNull(personScore.Score);
@@ -20,6 +21,7 @@
 
         public async Task<string?> IsValidAsync(PersonScore personScore)
         {
+            Console.WriteLine("ExistsAsync");
             ArgumentNullException.ThrowIfNull(personScore);
             ArgumentNullException.ThrowIfNull(personScore.Id);
             ArgumentNullException.ThrowIfNull(personScore.Score);

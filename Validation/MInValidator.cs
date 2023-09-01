@@ -1,9 +1,10 @@
 ﻿namespace Validation
 {
-    internal class MinValidator : IValidator
+    internal class MinValidator : IValidator,IAsync
     {
         public string? IsValid(PersonScore personScore)
         {
+            Console.WriteLine("MinValidator");
             ArgumentNullException.ThrowIfNull(personScore);
             ArgumentNullException.ThrowIfNull(personScore.Id);
             ArgumentNullException.ThrowIfNull(personScore.Score);
@@ -13,6 +14,7 @@
 
         public Task<string?> IsValidAsync(PersonScore personScore)
         {
+            Console.WriteLine("MinValidatorAsync");
             ArgumentNullException.ThrowIfNull(personScore);
             ArgumentNullException.ThrowIfNull(personScore.Id);
             ArgumentNullException.ThrowIfNull(personScore.Score);

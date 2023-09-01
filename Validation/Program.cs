@@ -7,8 +7,8 @@ using Validation;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddScoped<IValidator, MaxValidator>();
-builder.Services.AddScoped<IValidator, MinValidator>();
+builder.Services.AddScoped<IAsync, MaxValidator>();
+builder.Services.AddScoped<IAsync, MinValidator>();
 builder.Services.AddScoped<IValidator, ExistsValidator>();
 builder.Services.AddScoped<IValidateService, ValidateService>();
 using var host = builder.Build();

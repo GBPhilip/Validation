@@ -3,10 +3,12 @@
     internal class ValidateService :IValidateService
     {
         private readonly IEnumerable<IValidator> _validators;
+        private readonly IEnumerable<IAsync> _validAsyncs;
 
-        public ValidateService(IEnumerable<IValidator> validators)
+        public ValidateService(IEnumerable<IValidator> validators, IEnumerable<IAsync> validAsyncs)
         {
             _validators = validators;
+            _validAsyncs = validAsyncs;
         }
 
         public List<string> ValidateAll(PersonScore personScore)
@@ -38,10 +40,17 @@
             {
                 foreach (var validator in _validators)
                 {
+
                     tasks.Add(validator.IsValidAsync(personScore));
+                }
+                foreach (var validator in _validAsyncs)
+                {
+
+                    tasks.Add(Task.Run(() => validator.IsValid(personScore)));
                 }
 
                 errors.AddRange(await Task.WhenAll(tasks));
+
             }
             catch (Exception ex)
             {

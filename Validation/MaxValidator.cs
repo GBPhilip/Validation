@@ -1,9 +1,10 @@
 ﻿namespace Validation
 {
-    internal class MaxValidator : IValidator
+    internal class MaxValidator : IAsync
     {
         public string? IsValid(PersonScore personScore)
         {
+            Console.WriteLine("MaxValidator");
             ArgumentNullException.ThrowIfNull(personScore);
             ArgumentNullException.ThrowIfNull(personScore.Id);
             ArgumentNullException.ThrowIfNull(personScore.Score);
@@ -11,13 +12,14 @@
             return null;
         }
 
-        public Task<string?> IsValidAsync(PersonScore personScore)
+        public async Task<string?> IsValidAsync(PersonScore personScore)
         {
+            Console.WriteLine("MaxValidatorAsync");
             ArgumentNullException.ThrowIfNull(personScore);
             ArgumentNullException.ThrowIfNull(personScore.Id);
             ArgumentNullException.ThrowIfNull(personScore.Score);
-            if (personScore.Score > 100) return Task.FromResult((string?)"Score is too high for person {personScore.Id}");
-            return Task.FromResult((string?)null);
+            if (personScore.Score > 100) return (string?)"Score is too high for person {personScore.Id}";
+            return (string?)null;
         }
     }
 }
