@@ -21,9 +21,9 @@ static void RunCode(IServiceProvider hostProvider)
     var provider = serviceScope.ServiceProvider;
     var validator = provider.GetRequiredService<IValidateService>();
     var scoreForPerson = new PersonScore {Id = 2, Score = 75};
-    validator.ValidateAll(scoreForPerson);
+    validator.ValidateAllAsync(scoreForPerson);
 
 
-    validator.ValidateAll(null);
+    validator.ValidateAllAsync(null);
 
 }

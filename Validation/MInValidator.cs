@@ -4,9 +4,9 @@
     {
         public string? IsValid(PersonScore personScore)
         {
-            ArgumentNullException.ThrowIfNull(nameof(personScore));
-            ArgumentNullException.ThrowIfNull(nameof(personScore.Id));
-            ArgumentNullException.ThrowIfNull(nameof(personScore.Score));
+            ArgumentNullException.ThrowIfNull(personScore);
+            ArgumentNullException.ThrowIfNull(personScore.Id);
+            ArgumentNullException.ThrowIfNull(personScore.Score);
             if (personScore.Score < 0) return "Score is too low for person {personScore.Id}";
             return null;
         }
