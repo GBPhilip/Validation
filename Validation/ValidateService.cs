@@ -28,5 +28,27 @@
             }
             return errors;
         }
+
+
+        public async Task<List<string>> ValidateAllAsync(PersonScore personScore)
+        {
+            List<string> errors = new();
+            foreach (var validator in _validators)
+            {
+                string? error = null;
+                try
+                {
+                    error = await validator.IsValidAsync(personScore);
+
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"Unable to validate - {validator.GetType()} {ex.Message}");
+                }
+                if (error is not null) errors.Add(error);
+            }
+            return errors;
+        }
+
     }
 }
