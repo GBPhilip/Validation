@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Validation
+﻿namespace Validation
 {
-    internal class MInValidator : IValidator
+    internal class MinValidator : IValidator
     {
         public string? IsValid(PersonScore personScore)
         {
