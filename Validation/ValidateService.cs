@@ -35,17 +35,7 @@
             List<string> errors = new();
             foreach (var validator in _validators)
             {
-                string? error = null;
-                try
-                {
-                    error = await validator.IsValidAsync(personScore);
-
-                }
-                
-                catch (Exception ex) 
-                {
-                    errors.Add($"Unable to validate - {validator.GetType()} {ex.Message}");
-                }
+                string? error = await validator.IsValidAsync(personScore);
                 if (error is not null) errors.Add(error);
             }
             return errors;

@@ -23,7 +23,14 @@ static async Task RunCode(IServiceProvider hostProvider)
     var scoreForPerson = new PersonScore {Id = 2, Score = 75};
     var messages1 = await validator.ValidateAllAsync(scoreForPerson);
 
+    try
+    {
+        var message2 = await validator.ValidateAllAsync(null);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"What do I have here {ex.Message} {ex.GetType()}");
 
-    var message2 = await validator.ValidateAllAsync(null);
+    }
 
 }
